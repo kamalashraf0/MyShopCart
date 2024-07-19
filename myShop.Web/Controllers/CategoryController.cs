@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using myShop.Web.Data;
+using myShop.Web.Models;
 
 namespace myShop.Web.Controllers
 {
@@ -15,6 +16,20 @@ namespace myShop.Web.Controllers
         {
             var categories = _context.Categories.ToList();
             return View(categories);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
